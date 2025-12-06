@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Début du Live</title>
+<style>
+    body {
+        background-color: #121212;
+        color: #ffffff;
+        font-family: 'Arial', sans-serif;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+    h1 {
+        font-size: 3rem;
+        margin-bottom: 20px;
+    }
+    #logo {
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        border-radius: 50%;
+        margin-bottom: 30px;
+        box-shadow: 0 0 20px red;
+        animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+        0% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.1); opacity: 0.8; }
+        100% { transform: scale(1); opacity: 1; }
+    }
+    #timer {
+        font-size: 2.5rem;
+        background: #1f1f1f;
+        padding: 20px 40px;
+        border-radius: 15px;
+        box-shadow: 0 0 20px #ff0000;
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+
+<div id="logo"></div>
+<h1>Début du Live à 20:30</h1>
+<div id="timer">Chargement...</div>
+
+<script>
+// Date cible : 6 décembre 2025 à 20:30
+const targetDate = new Date("December 6, 2025 20:30:00").getTime();
+
+function updateTimer() {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    if (distance < 0) {
+        document.getElementById("timer").innerHTML = "Le live a commencé ! 🎉";
+        clearInterval(timerInterval);
+        return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("timer").innerHTML =
+        `${days}j ${hours}h ${minutes}m ${seconds}s`;
+}
+
+const timerInterval = setInterval(updateTimer, 1000);
+updateTimer();
+</script>
+
+</body>
+</html>
